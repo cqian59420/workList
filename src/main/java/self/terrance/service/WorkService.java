@@ -2,6 +2,8 @@ package self.terrance.service;
 
 import org.jooq.*;
 import org.jooq.impl.DSL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import self.terrance.entity.WorkItem;
 
 import java.sql.Connection;
@@ -13,6 +15,8 @@ import static spark.Spark.*;
  * Created by cq on 2017/3/16.
  */
 public class WorkService {
+
+    private static Logger logger = LoggerFactory.getLogger(WorkService.class);
 
     static DSLContext dslConction=null;
 

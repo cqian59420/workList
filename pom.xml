@@ -8,11 +8,12 @@
     <name>workList Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test</scope>
+            <!--<scope>test</scope>-->
         </dependency>
 
         <dependency>
@@ -63,6 +64,7 @@
             <version>3.5.3</version>
         </dependency>
 
+        <!--liquibase的配置文件使用yaml写时需要使用snakeyaml包-->
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
@@ -75,6 +77,16 @@
             <version>2.1.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.1</version>
+        </dependency>
 
 
     </dependencies>
@@ -100,6 +112,29 @@
                     <mainClass>self.terrance.service.WorkService</mainClass>
                     <arguments></arguments>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <!--<propertyFile>src/main/resources/liquibase.properties</propertyFile>-->
+                    <changeLogFile>src/main/resources/changelog.xml</changeLogFile>
+                    <driver>org.h2.Driver</driver>
+                    <url>jdbc:h2:~/worklist</url>
+                    <username>sa</username>
+                    <password></password>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
